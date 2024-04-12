@@ -2,7 +2,7 @@ import pygame as pg
 import random
 pg.init()
 
-screen = pg.display.set_mode((800, 500))
+screen = pg.display.set_mode((1080, 500))
 pg.display.set_caption("Hangman")
 
 images = []
@@ -39,7 +39,7 @@ def drawHangman():
     elif guessedLetters == 6:
         screen.blit(images[6], (50, 85))
     
-#m nmdef checkWin():
+#def checkwin()
     
 
 
@@ -58,7 +58,7 @@ while run:
 
     importImages()
     drawHangman()
-    #checkWin()
+    #create the checkWin()
 
     pg.display.update()
 pg.quit()
