@@ -44,7 +44,7 @@ def drawHangman():
     elif guessedLetterCounter == 6:
         screen.blit(images[6], (50, 85))
 
-
+importImages()
 
 run = True
 while run:
@@ -59,11 +59,8 @@ while run:
         if guessedLetterCounter >= 6:
             print("Congratulations, you failed to guess the word",randomChoice,".")
             run = False
-        elif guessedLetterCounter <= 6 and guessedLetters == guessedWord:
-            print("Congrats! You successfully guessed the word,",randomChoice,".")
-            run = False
         
-        if event.type == pg.KEYUP:
+        if event.type == pg.KEYDOWN:
             key = event.unicode.lower()
             print(f'{key} pressed')
             
@@ -78,7 +75,6 @@ while run:
         #mouse = pg.mouse.get_pos()
         #print(mouse)
 
-    importImages()
     drawHangman()
     
     pg.display.update()
