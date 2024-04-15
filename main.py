@@ -7,7 +7,6 @@ pg.display.set_caption("Hangman")
 
 images = []
 
-guessedLetters = []
 guessedWord = []
 
 words = ["banana", "merchant", "fund", "past", "quote", "fever", "mine", "principle", "stem", "mastermind", "main", "captivate", "judgement", "aluminum", 
@@ -56,21 +55,26 @@ while run:
         if event.type == pg.QUIT:
             run = False
         
-        if guessedLetterCounter >= 6:
-            print("Congratulations, you failed to guess the word",randomChoice,".")
-            run = False
-        
         if event.type == pg.KEYDOWN:
             key = event.unicode.lower()
             print(f'{key} pressed')
-            
-            if key in guessedLetters:
-                print("You already guessed that letter")
+
+            if key in guessedWord:
+                guessedWord.remove(key)
+                print("Correct guess!")
             else:
-                guessedLetters.append(key)
-                if key not in randomChoice:
-                    guessedLetterCounter += 1
-                    print("Incorrect guess!")
+                print("Incorrect guess")
+                guessedLetterCounter += 1
+        
+        
+        if guessedLetterCounter >= 6:
+            print("Congratulations, you failed to guess the word", randomChoice, ".")
+            run = False
+        elif len(guessedWord) == 0:
+            print("Congratulations! You successfully guessed the word", randomChoice, ".")
+            run = False
+    
+            
 
         #mouse = pg.mouse.get_pos()
         #print(mouse)
