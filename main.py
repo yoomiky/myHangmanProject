@@ -5,6 +5,17 @@ pg.init()
 screen = pg.display.set_mode((800, 500))
 pg.display.set_caption("Hangman")
 
+
+
+#Colors
+white = (255, 255, 255)
+green = (0, 255, 0)
+blue = (0, 0, 128)
+
+font = pg.font.SysFont(None, 38)
+text = font.render("_", False, white)
+
+
 images = []
 
 guessedWord = []
@@ -49,6 +60,12 @@ run = True
 while run:
     
     screen.fill((255, 255, 255))
+    
+    r = 385
+    u = 85
+    for i in range(len(randomChoice)):
+        screen.blit(text, (r, u))
+        r += 30
 
     for event in pg.event.get():
 
