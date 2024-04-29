@@ -13,8 +13,7 @@ green = (0, 255, 0)
 blue = (0, 0, 128)
 
 font = pg.font.SysFont(None, 38)
-text = font.render("_", False, white)
-
+text = font.render("_", False, blue)
 
 images = []
 
@@ -61,11 +60,15 @@ while run:
     
     screen.fill((255, 255, 255))
     
-    r = 385
-    u = 85
-    for i in range(len(randomChoice)):
-        screen.blit(text, (r, u))
+    r = 350
+    u = 250
+    for i in range(len(guessedWord)):
+        if guessedWord[i] == '_':
+            screen.blit(font.render("_", False, blue), (r, u))
+        else:
+            screen.blit(font.render(key, False, blue), (r, u))
         r += 30
+        
 
     for event in pg.event.get():
 
@@ -100,4 +103,3 @@ while run:
     
     pg.display.update()
 pg.quit()
-
