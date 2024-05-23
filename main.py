@@ -2,6 +2,7 @@ import pygame as pg
 import random
 pg.init()
 
+
 screen = pg.display.set_mode((800, 500))
 pg.display.set_caption("Hangman")
 
@@ -13,7 +14,7 @@ green = (0, 255, 0)
 blue = (0, 0, 128)
 
 font = pg.font.SysFont(None, 38)
-text = font.render("_", False, blue)
+text = font.render("text", False, blue)
 
 images = []
 
@@ -28,10 +29,15 @@ randomChoice = random.choice(words)
 guessedWord.extend(randomChoice)
 print(randomChoice)
         
+
+
 def importImages():
     for i in range(7):
         img = pg.image.load(f'images/hangman{i}.png')
         images.append(img)
+
+importImages()
+background_img = pg.image.load(f'images/menu.png')
 
 
 guessedLetterCounter = 0
@@ -53,22 +59,25 @@ def drawHangman():
     elif guessedLetterCounter == 6:
         screen.blit(images[6], (50, 85))
 
-importImages()
+
+def winCondition():
+
+    if guessedLetterCounter >= 6:
+        print("Congratulations, you failed to guess the word", randomChoice, ".")
+        pg.quit()
+        exit()
+
+    elif len(guessedWord) == 0:
+        print("Congratulations! You successfully guessed the word", randomChoice, ".")
+        pg.quit()
+        exit()
+
+
 
 run = True
 while run:
     
-    screen.fill((255, 255, 255))
-    
-    r = 350
-    u = 250
-    for i in range(len(guessedWord)):
-        if guessedWord[i] == '_':
-            screen.blit(font.render("_", False, blue), (r, u))
-        else:
-            screen.blit(font.render(key, False, blue), (r, u))
-        r += 30
-        
+    screen.blit(background_img, (0, 0))
 
     for event in pg.event.get():
 
@@ -79,6 +88,10 @@ while run:
             key = event.unicode.lower()
             print(f'{key} pressed')
 
+            if event.key == pg.K_SPACE:
+                screen.fill(white)
+                drawHangman()
+                
             if key in guessedWord:
                 guessedWord.remove(key)
                 print("Correct guess!")
@@ -86,20 +99,12 @@ while run:
                 print("Incorrect guess")
                 guessedLetterCounter += 1
         
-        
-        if guessedLetterCounter >= 6:
-            print("Congratulations, you failed to guess the word", randomChoice, ".")
-            run = False
-        elif len(guessedWord) == 0:
-            print("Congratulations! You successfully guessed the word", randomChoice, ".")
-            run = False
-    
-            
+              
 
         #mouse = pg.mouse.get_pos()
         #print(mouse)
 
-    drawHangman()
     
+    winCondition()
     pg.display.update()
 pg.quit()
